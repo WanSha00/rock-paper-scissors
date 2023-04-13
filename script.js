@@ -11,7 +11,7 @@ function playRound(playerSelection, computerSelection) {
     if (playerSelection == "rock") {
         if (computerSelection == "Rock") {
             console.log("P1: rock | CPU: rock");
-            return "TIE";
+            return "TIE P1: " + playerwin + " CPU: " + cpuwin;
         } else if (computerSelection == "Paper") {
             console.log("P1: rock | CPU: paper");
             cpuwin++;
@@ -31,7 +31,7 @@ function playRound(playerSelection, computerSelection) {
             return "WIN!!! P1: " + playerwin + " CPU: " + cpuwin;
         } else if (computerSelection == "Paper") {
             console.log("P1: paper | CPU: paper");
-            return "TIE..";
+            return "TIE.. P1: " + playerwin + " CPU: " + cpuwin;
 
         } else {
             console.log("P1: paper | CPU: scissors");
@@ -52,7 +52,7 @@ function playRound(playerSelection, computerSelection) {
 
         } else {
             console.log("P1: scissors | CPU: scissors");
-            return "TIE";
+            return "TIE P1: " + playerwin + " CPU: " + cpuwin;
         }
 
     }
@@ -63,31 +63,45 @@ function playRound(playerSelection, computerSelection) {
 
 
 let round = 0;
+let giveup = false;
 for (let i = 1; i <= 5; i++) {
 
     round++;
-    console.log("ROUND " + round + " starts");
+    console.log("ROUND " + round + " STARTS");
 
-    var computerSelection = getComputerChoice();
-    var playerSelection = prompt("Choose your attack! 1. Rock 2. Paper 3. Scissors");
+    var playerSelection = "";
+    while (playerSelection == "" || (playerSelection != "rock" && playerSelection != "paper"
+        && playerSelection != "scissors")) {
+        playerSelection = prompt("Choose your attack! 1. Rock 2. Paper 3. Scissors");
+        if (playerSelection != null) {
+            playerSelection = playerSelection.toLowerCase();
+        } else
+            if (playerSelection == null) {
+                break;
+            }
+
+    }
 
     if (playerSelection == null) {
         console.log("PLAYER gave up...");
+        giveup = true;
         break;
     }
 
-    playerSelection = playerSelection.toLowerCase();
+    var computerSelection = getComputerChoice();
     console.log(playRound(playerSelection, computerSelection));
 
-    console.log("ROUND " + round + " ends");
+    console.log("ROUND " + round + " ENDS\n");
 
 }
 
-if (playerwin > cpuwin) {
-    console.log("PLAYER WINS!!!");
+if (giveup == true) {
+    console.log("PLAYER LOSE BECAUSE GAVE UP THE MATCH... P1:" + playerwin + " CPU:" + cpuwin);
+} else if (playerwin > cpuwin) {
+    console.log("PLAYER WINS!!!  P1:" + playerwin + " CPU:" + cpuwin);
 } else if (playerwin == cpuwin) {
-    console.log("PLAYER TIED WITH COMPUTER..");
+    console.log("PLAYER TIED WITH COMPUTER.. P1:" + playerwin + " CPU:" + cpuwin);
 } else {
-    console.log("PLAYER LOSE...");
+    console.log("PLAYER LOSE... P1:" + playerwin + " CPU:" + cpuwin);
 }
 
