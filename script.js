@@ -116,11 +116,6 @@ function playGame(e) {
     let computerSelection = getComputerChoice();
     console.log("cpu " + computerSelection);
 
-    //add choices div
-   // let choicesDiv = document.createElement('div');
-   // choicesDiv.appendChild(document.createTextNode("PLAYER 1 " + playerSelection + " | VS CPU " + computerSelection));
-    //document.body.appendChild(choicesDiv);
-
     //add round result div
     let result = playRound(playerSelection, computerSelection);
 
